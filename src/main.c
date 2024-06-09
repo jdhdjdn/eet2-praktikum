@@ -23,33 +23,24 @@ void zero_crossing(){
 }
 void setup() {
   pinMode(14, OUTPUT);//LED
+  pinMode(9, INPUT);
   pinMode(6, INPUT);
   pinMode(3, OUTPUT);
   pinMode(1, INPUT);//key2
-  pinMode(0, INPUT);//key2
+  pinMode(0, INPUT);//key1
   key_1_last=0;
   key_1_now=0;
-  pin_6_last=0;
-  pin_6_now=0;
-  zero_crossing_flag=0;
+  alpha=90;
+  SETanlge(alpha);
 }
 
 void loop() {
-  pin_6_last=pin_6_now;
-  pin_6_now=digitalRead(6);
-
-  if(pin_6_last==LOW&&pin_6_now==HIGH){
-    zero_crossing_flag=1;
-  }
-  if(zero_crossing_flag){
-    key_1_last=key_1_now;
-    key_1_now=digitalRead(0);
-    if(key_1_last==LOW&&key_1_now==HIGH){
+  key_1_last=key_1_now;
+  key_1_now=digitalRead(0);
+  if(key_1_last==LOW&&key_1_now==HIGH){
       alpha=alpha+10;
       if(alpha>ALPHAMAX) alpha=alpha%ALPHAMAX+ALPHAMIN;
+      SETanlge(alpha);
     } 
-    SETanlge(alpha);
-    zero_crossing();
-    zero_crossing_flag=0;
-  }
+  delay(10);
 }
