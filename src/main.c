@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#define ALPHAMIN 5
+#define ALPHAMAX 175
+
 bool key_1_now;
 bool key_1_last;
 bool pin_6_now;
@@ -23,7 +26,7 @@ void setup() {
   pinMode(6, INPUT);
   pinMode(3, OUTPUT);
   pinMode(1, INPUT);//key2
-  pinMode(0, INPUT);//key1
+  pinMode(0, INPUT);//key2
   key_1_last=0;
   key_1_now=0;
   pin_6_last=0;
@@ -43,7 +46,7 @@ void loop() {
     key_1_now=digitalRead(0);
     if(key_1_last==LOW&&key_1_now==HIGH){
       alpha=alpha+10;
-      if(alpha>179) alpha=alpha%179;
+      if(alpha>ALPHAMAX) alpha=alpha%ALPHAMAX+ALPHAMIN;
     } 
     SETanlge(alpha);
     zero_crossing();
